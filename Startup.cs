@@ -37,6 +37,15 @@ namespace testdotnet2
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            var options = new JwtBearerOptions
+            {
+                //Audience = Configuration["Auth0:ApiIdentifier"],
+                //Authority = $"https://{Configuration["Auth0:Domain"]}/"
+                Audience = "http://localhost:5000/",
+                Authority = "https://mikol4j.auth0.com/"
+            };
+            app.UseJwtBearerAuthentication(options);
+
             app.UseMvc();
         }
     }

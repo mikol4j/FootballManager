@@ -25,16 +25,11 @@ namespace testdotnet2.Controllers
             return new string[] { "value1", "value2" };
         }
         // GET api/values/5
+        [Authorize]
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "test";
-        }
-        [Authorize]
-        [HttpGet]
-        public string GetAuthorized(int id)
-        {
-            return "test";
+            return DateTime.Now.Second.ToString();
         }
         // POST api/values
         [HttpPost]
