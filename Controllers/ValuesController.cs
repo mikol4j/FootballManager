@@ -12,19 +12,14 @@ namespace testdotnet2.Controllers
     public class ValuesController : Controller
     {
         // GET api/values
-
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
-        // GET api/values
-        [HttpGet]
-        public IEnumerable<string> GetAuth()
-        {
-            return new string[] { "value1", "value2" };
-        }
+
         // GET api/values/5
+        [Authorize(Policy = "read:userinfo")]
         [Authorize]
         [HttpGet("{id}")]
         public string Get(int id)

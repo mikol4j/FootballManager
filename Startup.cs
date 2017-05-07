@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using testdotnet2.Infrastructure;
 
 namespace testdotnet2
 {
@@ -28,7 +29,19 @@ namespace testdotnet2
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            string domain = "https://mik.eu.auth0.com/";
+
+
+            services.AddAuthorization(a => a.AddPolicy("read:userinfo", b => b.RequireRole("read:userinfo")));
             services.AddMvc();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("read:userinfo",
+                    policy => policy.Requirements.Add(new HasScopeRequirement("read:userinfo", domain)));
+
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,11 +54,13 @@ namespace testdotnet2
             {
                 //Audience = Configuration["Auth0:ApiIdentifier"],
                 //Authority = $"https://{Configuration["Auth0:Domain"]}/"
-                Audience = "http://localhost:5000/",
-                Authority = "https://mikol4j.auth0.com/"
+                Audience = "http://localhost:1496/",
+                Authority = "https://mik.eu.auth0.com"
             };
             app.UseJwtBearerAuthentication(options);
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }
