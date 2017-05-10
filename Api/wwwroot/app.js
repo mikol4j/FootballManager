@@ -1,4 +1,4 @@
-$(document).ready(function() {
+﻿$(document).ready(function() {
   
   var lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
     auth: {
@@ -59,6 +59,25 @@ $(document).ready(function() {
     localStorage.removeItem('id_token');
     window.location.href = "/";
   };
+  var access_token = localStorage.getItem('access_token');
+  $('#access-token').val(access_token);
+
+  $('#call-api').on("click", function () {
+
+      $.ajax({
+          url: "http://localhost:1496/api/values/getcurrenttime",
+          type: 'GET',
+          dataType: 'text',
+          headers: {'authorization': 'Bearer '+access_token},
+          contentType: 'application/json; charset=utf-8',
+          success: function (result) {
+              $("#result-from-api").html('OK! Zapytanie powiodło się, aktualny czas z serwera: ' + result);
+          },
+          error: function (error) {
+              $("#result-from-api").html('Niepowodzenie :' + error);
+          }
+      });
+  });
 
   retrieve_profile();
 });

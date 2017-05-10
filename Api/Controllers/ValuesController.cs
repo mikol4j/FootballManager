@@ -22,9 +22,9 @@ namespace testdotnet2.Controllers
         [Authorize(Policy = "read:userinfo")]
         [Authorize]
         [HttpGet("{id}")]
-        public string Get(int id)
+        public string GetCurrentTime(int id)
         {
-            return DateTime.Now.Second.ToString();
+            return DateTime.Now.ToString();
         }
         // POST api/values
         [HttpPost]
