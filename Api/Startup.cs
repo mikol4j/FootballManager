@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using testdotnet2.Infrastructure;
+using Infrastructure.Services;
+using Infrastructure.Repositories;
+using Core.Repositiories;
 
 namespace testdotnet2
 {
@@ -34,6 +37,8 @@ namespace testdotnet2
 
             services.AddAuthorization(a => a.AddPolicy("read:userinfo", b => b.RequireRole("read:userinfo")));
             services.AddMvc();
+            services.AddScoped<IUserRepository, UserRepository>(); // Scoped per request
+            services.AddScoped<IUserService, UserService>(); // Scoped per request
 
             services.AddAuthorization(options =>
             {

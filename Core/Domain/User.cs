@@ -22,7 +22,7 @@ namespace Core.Domain
 
         protected User()
         {
-            //protect from creating parameterless instance
+            //protects from creating parameterless instance
         }
 
         public User(string email, string username, string password, string salt )
