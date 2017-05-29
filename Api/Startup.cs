@@ -11,6 +11,7 @@ using testdotnet2.Infrastructure;
 using Infrastructure.Services;
 using Infrastructure.Repositories;
 using Core.Repositiories;
+using Infrastructure.Mappers;
 
 namespace testdotnet2
 {
@@ -39,6 +40,7 @@ namespace testdotnet2
             services.AddMvc();
             services.AddScoped<IUserRepository, UserRepository>(); // Scoped per request
             services.AddScoped<IUserService, UserService>(); // Scoped per request
+            services.AddSingleton(AutoMapperConfig.Initialize()); 
 
             services.AddAuthorization(options =>
             {

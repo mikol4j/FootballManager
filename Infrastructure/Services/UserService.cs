@@ -4,28 +4,32 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Infrastructure.Dto;
+using AutoMapper;
 
 namespace Infrastructure.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        public UserService(IUserRepository userRepository)
+        private readonly IMapper _mapper;
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public UserDto Get(string email)
         {
             User user = _userRepository.Get(email);
 
-            return new UserDto()
-            {
-                Id = user.Id,
-                Email = user.Email,
-                FullName = user.FullName,
-                UserName = user.UserName
-            };
+            //return new UserDto()
+            //{
+            //    Id = user.Id,
+            //    Email = user.Email,
+            //    FullName = user.FullName,
+            //    UserName = user.UserName
+            //};
+            return _mapper.Map<User, UserDto>(user);
             
         }
 
