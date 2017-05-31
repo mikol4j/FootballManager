@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Infrastructure.Services;
 using Infrastructure.Dto;
+using Infrastructure.Commands.Users;
 
 namespace testdotnet2.Controllers
 {
@@ -19,10 +20,21 @@ namespace testdotnet2.Controllers
         {
             _userService = userService;
         }
+
         // GET api/values
         [HttpGet("{email}")]
         public UserDto Get(string email)
         => _userService.Get(email);
+
+        // POST 
+        [HttpPost]
+        public IActionResult Post([FromBody]CreateUser request)
+        {
+
+                _userService.Register(request.Email, request.Username, request.Password);
+                return Ok();
+
+        }
 
     }
 }

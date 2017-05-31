@@ -28,8 +28,9 @@ namespace testdotnet2.Controllers
         }
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post(string password, [FromBody]string username)
         {
+
         }
 
         // PUT api/values/5

@@ -62,7 +62,7 @@
   var access_token = localStorage.getItem('access_token');
   $('#access-token').val(access_token);
 
-  $('#call-api').on("click", function () {
+  $('#call-api-get').on("click", function () {
 
       $.ajax({
           url: "http://localhost:1496/api/values/getcurrenttime",
@@ -72,6 +72,31 @@
           contentType: 'application/json; charset=utf-8',
           success: function (result) {
               $("#result-from-api").html('OK! Zapytanie powiodło się, aktualny czas z serwera: ' + result);
+          },
+          error: function (error) {
+              $("#result-from-api").html('Niepowodzenie :' + error);
+          }
+      });
+  });
+
+  var request = {
+      email: 'admin@domain.com',
+      password: 'p@ssword',
+      username: 'admin'
+  }
+
+  $('#call-api-post').on("click", function () {
+
+      $.ajax({
+          url: "http://localhost:1496/users",
+          type: 'POST',
+          cache: false,
+          dataType: "json",
+          contentType: 'application/json; charset=utf-8',
+          headers: { 'authorization': 'Bearer ' + access_token },
+          data: JSON.stringify(request),
+          success: function (result) {
+              $("#result-from-api").html('OK! Wynik ' + result);
           },
           error: function (error) {
               $("#result-from-api").html('Niepowodzenie :' + error);
