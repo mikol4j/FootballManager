@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Core.Domain;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
@@ -19,7 +20,7 @@ namespace Infrastructure.Repositories
         };
 
 
-        public void Add(User user)
+        public async Task AddAsync(User user)
         {
             if(!_users.Contains(user))
             {
@@ -32,19 +33,19 @@ namespace Infrastructure.Repositories
 
         }
 
-        public User Get(Guid id)
+        public async Task<User> GetAsync(Guid id)
             =>_users.SingleOrDefault(x => x.Id == id);
 
 
-        public User Get(string email)
+        public async Task<User> GetAsync(string email)
             => _users.Single(x => x.Email == email);
 
-        public void Remove(Guid id)
+        public async Task RemoveAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(User user)
+        public async Task UpdateAsync(User user)
         {
             throw new NotImplementedException();
         }

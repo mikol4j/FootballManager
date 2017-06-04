@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Infrastructure.Dto;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
@@ -18,9 +19,9 @@ namespace Infrastructure.Services
             _mapper = mapper;
         }
 
-        public UserDto Get(string email)
+        public async Task<UserDto> GetAsync(string email)
         {
-            User user = _userRepository.Get(email);
+            User user = await _userRepository.GetAsync(email);
 
             //return new UserDto()
             //{
@@ -33,16 +34,16 @@ namespace Infrastructure.Services
             
         }
 
-        public void Register(string email, string username, string password)
+        public async Task RegisterAsync(string email, string username, string password)
         {
-            User user = _userRepository.Get(email);
+            User user = await _userRepository.GetAsync(email);
             if(user != null)
             {
                 throw new Exception($"User with email '{email}' already exists.");
             }
             string salt = Guid.NewGuid().ToString("N");
             user = new User(email, username, salt, password);
-            _userRepository.Add(user);
+            await _userRepository.AddAsync(user);
         }
     }
 }

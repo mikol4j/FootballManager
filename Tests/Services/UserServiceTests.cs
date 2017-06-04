@@ -1,4 +1,9 @@
-﻿using FluentAssertions;
+﻿using AutoMapper;
+using Core.Domain;
+using Core.Repositiories;
+using FluentAssertions;
+using Infrastructure.Services;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +17,12 @@ namespace Tests.Services
         [Fact]
         public async Task Test()
         {
-            true.ShouldBeEquivalentTo(true);
+            var userRepositoryMock = new Mock<IUserRepository>();
+            var mapperMock = new Mock<IMapper>();
+            var userService = new UserService(userRepositoryMock.Object,mapperMock.Object);
+
+            await userService.RegisterAsync("user@email.com", "user", "password");
+            userRepositoryMock.Verify(x => x.AddAsync(It.IsAny<User>()), Times.Once);
         }
     }
 }

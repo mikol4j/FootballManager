@@ -23,15 +23,22 @@ namespace testdotnet2.Controllers
 
         // GET api/values
         [HttpGet("{email}")]
-        public UserDto Get(string email)
-        => _userService.Get(email);
+        public async Task<IActionResult> Get(string email)
+        {
+            var user = await _userService.GetAsync(email);
+            if(user == null)
+            {
+                return NotFound();
+            }
+            return Json(user);
+        }
 
         // POST 
         [HttpPost]
         public IActionResult Post([FromBody]CreateUser request)
         {
 
-                _userService.Register(request.Email, request.Username, request.Password);
+                _userService.RegisterAsync(request.Email, request.Username, request.Password);
                 return Ok();
 
         }
