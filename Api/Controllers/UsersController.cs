@@ -26,7 +26,7 @@ namespace testdotnet2.Controllers
         public async Task<IActionResult> Get(string email)
         {
             var user = await _userService.GetAsync(email);
-            if(user == null)
+            if (user == null)
             {
                 return NotFound();
             }
@@ -35,11 +35,12 @@ namespace testdotnet2.Controllers
 
         // POST 
         [HttpPost]
-        public IActionResult Post([FromBody]CreateUser request)
+        public async Task<IActionResult> Post([FromBody]CreateUser request)
         {
 
-                _userService.RegisterAsync(request.Email, request.Username, request.Password);
-                return Ok();
+            _userService.RegisterAsync(request.Email, request.Username, request.Password);
+
+            return Created($"users/{request.Email}", new object()); //201
 
         }
 
