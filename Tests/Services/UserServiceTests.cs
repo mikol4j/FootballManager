@@ -15,7 +15,7 @@ namespace Tests.Services
     public class UserServiceTests
     {
         [Fact]
-        public async Task Test()
+        public async Task RegisterAsyncShouldInvoke()
         {
             var userRepositoryMock = new Mock<IUserRepository>();
             var mapperMock = new Mock<IMapper>();
