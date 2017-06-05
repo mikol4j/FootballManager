@@ -38,7 +38,7 @@ namespace Infrastructure.Repositories
 
 
         public async Task<User> GetAsync(string email)
-            => _users.Single(x => x.Email == email);
+            => _users.SingleOrDefault(x => x.Email == email);
 
         public async Task RemoveAsync(Guid id)
         {
