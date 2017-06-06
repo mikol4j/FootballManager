@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Infrastructure.Commands
 {
-    interface ICommandDispatcher
+    public interface ICommandDispatcher
     {
     }
 }
