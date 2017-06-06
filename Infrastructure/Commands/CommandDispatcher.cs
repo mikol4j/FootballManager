@@ -6,23 +6,24 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Commands
 {
-    public class CommandDispatcher
+    public class CommandDispatcher : ICommandDispatcher
     {
         private readonly IComponentContext _context;
         public CommandDispatcher(IComponentContext cotenxt)
         {
-            _context = _context;
+            _context = cotenxt;
         }
 
         public async Task DispatchAsync<T>(T command) where T : ICommand
         {
             if(command == null)
             {
-                throw new ArgumentNullException(nameof(command), $"Commant '{typeof(T).Name}' can not be null.");
-                var handler = _context.Resolve<ICommandHandler<T>>();
+                throw new ArgumentNullException(nameof(command), $"Command '{typeof(T).Name}' can not be null.");
 
-                await handler.HadnleAsync(command);
             }
+            var handler = _context.Resolve<ICommandHandler<T>>();
+
+            await handler.HadnleAsync(command);
         }
     }
 }

@@ -7,6 +7,6 @@ namespace Infrastructure.Commands
 {
     public interface ICommandDispatcher
     {
-        Task DsipatchAsync<T>(T command) where T : ICommand;
+        Task DispatchAsync<T>(T command) where T : ICommand;
     }
 }

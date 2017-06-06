@@ -12,17 +12,14 @@ using Infrastructure.Commands;
 namespace testdotnet2.Controllers
 {
 
-    [Route("[controller]")]
-    public class UsersController : Controller
+
+    public class UsersController : ApiBaseController
     {
         private readonly IUserService _userService;
 
-        private readonly ICommandDispatcher _commandDispacher;
-
-        public UsersController(IUserService userService, ICommandDispatcher commandDispacher)
+        public UsersController(IUserService userService, ICommandDispatcher commandDispacher) : base (commandDispacher) 
         {
             _userService = userService;
-            _commandDispacher = commandDispacher;
         }
 
         // GET api/values
@@ -41,7 +38,7 @@ namespace testdotnet2.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]CreateUser command)
         {
-            await _commandDispacher.DsipatchAsync(command);
+            await _commandDispatcher.DispatchAsync(command);
 
             return Created($"users/{command.Email}", new object()); //201
 
