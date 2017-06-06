@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Infrastructure.Services;
 using Infrastructure.Dto;
 using Infrastructure.Commands.Users;
+using Infrastructure.Commands;
 
 namespace testdotnet2.Controllers
 {
@@ -16,9 +17,12 @@ namespace testdotnet2.Controllers
     {
         private readonly IUserService _userService;
 
-        public UsersController(IUserService userService)
+        private readonly ICommandDispatcher _commandDispacher;
+
+        public UsersController(IUserService userService, ICommandDispatcher commandDispacher)
         {
             _userService = userService;
+            _commandDispacher = commandDispacher;
         }
 
         // GET api/values
@@ -35,12 +39,11 @@ namespace testdotnet2.Controllers
 
         // POST 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]CreateUser request)
+        public async Task<IActionResult> Post([FromBody]CreateUser command)
         {
+            await _commandDispacher.DsipatchAsync(command);
 
-            _userService.RegisterAsync(request.Email, request.Username, request.Password);
-
-            return Created($"users/{request.Email}", new object()); //201
+            return Created($"users/{command.Email}", new object()); //201
 
         }
 
