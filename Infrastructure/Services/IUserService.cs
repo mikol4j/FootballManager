@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
-    public interface IUserService
+    public interface IUserService : IService
     {
         Task RegisterAsync(string email, string username, string password);
 

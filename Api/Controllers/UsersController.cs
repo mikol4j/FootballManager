@@ -8,6 +8,8 @@ using Infrastructure.Services;
 using Infrastructure.Dto;
 using Infrastructure.Commands.Users;
 using Infrastructure.Commands;
+using Microsoft.Extensions.Configuration;
+using Infrastructure.Settings;
 
 namespace testdotnet2.Controllers
 {
@@ -17,8 +19,13 @@ namespace testdotnet2.Controllers
     {
         private readonly IUserService _userService;
 
-        public UsersController(IUserService userService, ICommandDispatcher commandDispacher) : base (commandDispacher) 
+        private readonly GeneralSettings _configuration;
+
+        public UsersController(IUserService userService,
+            ICommandDispatcher commandDispacher,
+            GeneralSettings configuration) : base (commandDispacher) 
         {
+            _configuration = configuration;
             _userService = userService;
         }
 

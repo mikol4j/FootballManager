@@ -15,6 +15,7 @@ using Infrastructure.Mappers;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Infrastructure.IoC.Modules;
+using Infrastructure.IoC;
 
 namespace testdotnet2
 {
@@ -43,9 +44,7 @@ namespace testdotnet2
 
             services.AddAuthorization(a => a.AddPolicy("read:userinfo", b => b.RequireRole("read:userinfo")));
             services.AddMvc();
-            services.AddScoped<IUserRepository, UserRepository>(); // Scoped per request
-            services.AddScoped<IUserService, UserService>(); // Scoped per request
-            services.AddSingleton(AutoMapperConfig.Initialize()); 
+
 
             services.AddAuthorization(options =>
             {
@@ -56,7 +55,7 @@ namespace testdotnet2
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
-            builder.RegisterModule<CommandModule>();
+            builder.RegisterModule(new ContainerModule(Configuration));
             ApplicationContainer = builder.Build();
 
             return new AutofacServiceProvider(ApplicationContainer);

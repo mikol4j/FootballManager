@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Core.Repositiories
 {
     //COMMAND-QUERY SEPARATION PATTERN (CQS)
-    public interface IUserRepository
+    public interface IUserRepository : IRepository
     {
         Task<User> GetAsync(Guid id);
         Task<User> GetAsync(string email);
