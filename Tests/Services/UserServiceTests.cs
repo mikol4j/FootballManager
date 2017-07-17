@@ -19,9 +19,9 @@ namespace Tests.Services
         {
             var userRepositoryMock = new Mock<IUserRepository>();
             var mapperMock = new Mock<IMapper>();
-            var userService = new UserService(userRepositoryMock.Object,mapperMock.Object);
+           // var userService = new UserService(userRepositoryMock.Object,mapperMock.Object);
 
-            await userService.RegisterAsync("user@email.com", "user", "password");
+           // await userService.RegisterAsync("user@email.com", "", "user", "password");
             userRepositoryMock.Verify(x => x.AddAsync(It.IsAny<User>()), Times.Once);
         }
     }

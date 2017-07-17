@@ -18,6 +18,13 @@ namespace Infrastructure.IoC.Modules
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
 
+            builder.RegisterType<Encrypter>()
+                .As<IEncrypter>()
+                .SingleInstance();
+
+            builder.RegisterType<JwtHandler>()
+                .As<IJwtHandler>()
+                .SingleInstance();
 
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Core.Repositiories;
+using Infrastructure.Services;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -17,7 +18,6 @@ namespace Infrastructure.IoC.Modules
                 .Where(t => t.IsAssignableTo<IRepository>())
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
-
 
         }
     }

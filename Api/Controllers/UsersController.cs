@@ -30,6 +30,7 @@ namespace testdotnet2.Controllers
         }
 
         // GET api/values
+        [Authorize]
         [HttpGet("{email}")]
         public async Task<IActionResult> Get(string email)
         {

@@ -16,6 +16,9 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Infrastructure.IoC.Modules;
 using Infrastructure.IoC;
+using Microsoft.IdentityModel.Tokens;
+using Infrastructure.Settings;
+using System.Text;
 
 namespace testdotnet2
 {
@@ -69,13 +72,26 @@ namespace testdotnet2
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            // AUTH0.COM AUTHENTICATION
+            //var options = new JwtBearerOptions 
+            //{
+            //    //Audience = Configuration["Auth0:ApiIdentifier"],
+            //    //Authority = $"https://{Configuration["Auth0:Domain"]}/"
+            //    Audience = "http://localhost:1496/",
+            //    Authority = "https://mik.eu.auth0.com"
+            //};
+            var jwtSettings = app.ApplicationServices.GetService<JwtSettings>();
             var options = new JwtBearerOptions
             {
-                //Audience = Configuration["Auth0:ApiIdentifier"],
-                //Authority = $"https://{Configuration["Auth0:Domain"]}/"
-                Audience = "http://localhost:1496/",
-                Authority = "https://mik.eu.auth0.com"
-            };
+                AutomaticAuthenticate = true,
+                TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = jwtSettings.Issuer,
+                    ValidateAudience = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
+                }
+            };   
+
             app.UseJwtBearerAuthentication(options);
 
             app.UseDefaultFiles();

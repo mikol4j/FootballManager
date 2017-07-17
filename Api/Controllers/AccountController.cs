@@ -15,13 +15,29 @@ namespace testdotnet2.Controllers
 
     public class AccountController : ApiBaseController
     {
+        private readonly IJwtHandler _jwtHandler;
 
-        public AccountController(ICommandDispatcher commandDispacher) : base (commandDispacher) 
+        public AccountController(ICommandDispatcher commandDispacher, IJwtHandler jwtHandler) : base (commandDispacher) 
         {
+            _jwtHandler = jwtHandler;
         }
 
+        [HttpGet]
+        [Route("token")]
+        public IActionResult Get()
+        {
+            var token = _jwtHandler.CreateToken("user1@gmail.com", "user");
 
-        // POST 
+            return Json(token);
+
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("auth")]
+        public IActionResult GetAuth()
+            => Json("ok");
+
         [Route("password")]
         [HttpPut]
         public async Task<IActionResult> Put([FromBody]ChangeUserPassword command)

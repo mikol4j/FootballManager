@@ -8,8 +8,9 @@ namespace Infrastructure.Services
 {
     public interface IUserService : IService
     {
-        Task RegisterAsync(string email, string username, string password);
+        Task RegisterAsync(string email, string username, string password, string role);
 
-        Task<UserDto> GetAsync(string email); 
+        Task<UserDto> GetAsync(string email);
+        Task LoginAsync(string email, string password);
     }
 }

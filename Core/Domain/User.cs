@@ -14,6 +14,8 @@ namespace Core.Domain
 
         public string Salt { get; protected set; }
 
+        public string Role { get; protected set; }
+
         public string UserName { get; protected set; }
 
         public string FullName { get; protected set; }
@@ -25,7 +27,7 @@ namespace Core.Domain
             //protects from creating parameterless instance
         }
 
-        public User(string email, string username, string password, string salt )
+        public User(string email, string username, string role, string password, string salt )
         {
             Id = new Guid();
             Email = email;
