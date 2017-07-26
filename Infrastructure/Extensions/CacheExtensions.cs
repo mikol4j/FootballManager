@@ -11,7 +11,7 @@ namespace Infrastructure.Extensions
         public static void SetJwt(this IMemoryCache cacheMemory, Guid tokenId, JwtDto jwt)
             => cacheMemory.Set(GetJwtKey(tokenId), jwt, TimeSpan.FromSeconds(5));
 
-        public static void GetJwt(this IMemoryCache cacheMemory, Guid tokenId)
+        public static JwtDto GetJwt(this IMemoryCache cacheMemory, Guid tokenId)
             => cacheMemory.Get<JwtDto>(GetJwtKey(tokenId));
 
         public static string GetJwtKey(Guid tokenId)

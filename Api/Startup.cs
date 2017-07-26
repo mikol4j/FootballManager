@@ -47,6 +47,7 @@ namespace testdotnet2
 
             services.AddAuthorization(a => a.AddPolicy("read:userinfo", b => b.RequireRole("read:userinfo")));
             services.AddMvc();
+            services.AddMemoryCache();
 
 
             services.AddAuthorization(options =>
@@ -97,6 +98,12 @@ namespace testdotnet2
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc();
+            var generalSettings = app.ApplicationServices.GetService<GeneralSettings>();
+            if(generalSettings.SeedData)
+            {
+                var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
+                dataInitializer.SeedAsync();
+            }
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
         }
     }

@@ -27,9 +27,9 @@ namespace Core.Domain
             //protects from creating parameterless instance
         }
 
-        public User(string email, string username, string role, string password, string salt )
+        public User(Guid userId, string email, string username, string role, string password, string salt )
         {
-            Id = new Guid();
+            Id = userId;
             Email = email;
             UserName = username;
             Password = password;
