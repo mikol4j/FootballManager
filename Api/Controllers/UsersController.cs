@@ -52,5 +52,14 @@ namespace testdotnet2.Controllers
 
         }
 
+        // GET
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var users = await _userService.BrowseAsync();
+
+            return Json(users);
+        }
+
     }
 }

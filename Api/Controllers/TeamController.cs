@@ -18,14 +18,21 @@ namespace testdotnet2.Controllers
 
     public class TeamController : ApiBaseController
     {
+        private readonly ITeamService _teamService;
 
         public TeamController(IUserService userService,
-            ICommandDispatcher commandDispacher) : base (commandDispacher) 
+            ICommandDispatcher commandDispacher, ITeamService teamService) : base (commandDispacher) 
         {
-
+            ITeamService _teamService = teamService;
         }
+        // GET
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var teams = await _teamService.BrowseAsync();
 
-
+            return Json(teams);
+        }
         // POST 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]CreateTeam command)
