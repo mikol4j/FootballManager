@@ -24,7 +24,7 @@ namespace TestsEndToEnd
         public async Task GivenValidEmailUserShouldExit()
         {
             // Arrange
-            string email = "user1@gmail.com";
+            string email = "user1@test.com";
             //Act
             var user = await GetUserAsync(email);
 
@@ -37,7 +37,7 @@ namespace TestsEndToEnd
         public async Task GivenInvalidEmailUserShouldNotExit()
         {
             // Arrange
-            string email = "user19@gmail.com";
+            string email = "user19@test.com";
             //Act
             var response = await Client.GetAsync($"users/{email}");
 
@@ -52,7 +52,7 @@ namespace TestsEndToEnd
             // Arrange
             var command = new CreateUser
             {
-                Email = "test@email.com",
+                Email = "test@test.com",
                 Username = "test",
                 Password = "secret"
             };

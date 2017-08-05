@@ -64,5 +64,11 @@ namespace Infrastructure.Services
             user = new User(userId, email, username, role, hash, salt);
             await _userRepository.AddAsync(user);
         }
+
+        public async Task<IEnumerable<UserDto>> BrowseAsync()
+        {
+            var teams = await _userRepository.BrowseAsync();
+            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(teams);
+        }
     }
 }

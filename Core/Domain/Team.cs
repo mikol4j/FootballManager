@@ -6,7 +6,7 @@ namespace Core.Domain
 {
     public class Team
     {
-        public Guid Id { get; set; }
+        public Guid TeamId { get; set; }
 
         public string TeamName { get; protected set; }
 
@@ -19,12 +19,15 @@ namespace Core.Domain
             //protects from creating parameterless instance
         }
 
-        public Team(string teamName, string description)
+        public Team(User user)
         {
-            Id = new Guid();
-            TeamName = teamName;
-            Description = description;
-            CreatedAt = DateTime.UtcNow;
+            TeamId = user.Id;
+            Description = $"Team created for {user.FullName}";
+        }
+
+        public void SetTeam(string teamName, string description)
+        {
+               
         }
     }
 

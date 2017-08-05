@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using testdotnet2;
+using Microsoft.Extensions.Logging;
 
 namespace TestsEndToEnd.Controllers
 {

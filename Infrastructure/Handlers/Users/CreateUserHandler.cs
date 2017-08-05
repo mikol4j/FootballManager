@@ -18,7 +18,7 @@ namespace Infrastructure.Handlers.Users
         }
         public async Task HadnleAsync(CreateUser command)
         {
-            await _userService.RegisterAsync(command.Email, command.Username, command.Password, "");
+            await _userService.RegisterAsync(Guid.NewGuid(),command.Email, command.Username, command.Password, "");
         }
     }
 }

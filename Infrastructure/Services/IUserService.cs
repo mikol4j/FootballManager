@@ -12,5 +12,7 @@ namespace Infrastructure.Services
 
         Task<UserDto> GetAsync(string email);
         Task LoginAsync(string email, string password);
+
+        Task<IEnumerable<UserDto>> BrowseAsync();
     }
 }
