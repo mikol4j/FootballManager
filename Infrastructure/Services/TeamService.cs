@@ -13,14 +13,16 @@ namespace Infrastructure.Services
     {
         private readonly ITeamRepository _teamRepository;
         private readonly IUserRepository _userRepository;
+        private readonly ICourtProvider _courtProvider;
         private readonly IMapper _mapperRepository;
 
         public TeamService(ITeamRepository teamRepository, IUserRepository 
-            userRepository, IMapper mapper)
+            userRepository, IMapper mapper, ICourtProvider courtProvider)
         {
             _teamRepository = teamRepository;
             _mapperRepository = mapper;
             _userRepository = userRepository;
+            _courtProvider = courtProvider;
         }
 
 
@@ -54,6 +56,7 @@ namespace Infrastructure.Services
             {
                 throw new Exception($"Team with userid: {id}, was not found.");
             }
+            var court = _courtProvider.GetAsync("Poland", "Lazienkowska");
             team.SetTeam(teamName, description);
             await _teamRepository.AddAsync(team);
         }

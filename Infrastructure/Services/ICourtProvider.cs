@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
-    public interface ICourtProvider
+    public interface ICourtProvider : IService
     {
         Task<IEnumerable<Court>> BrowseAsync();
         Task<Court> GetAsync(string city, string street);

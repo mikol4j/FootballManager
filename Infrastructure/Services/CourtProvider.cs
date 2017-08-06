@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Core.Domain;
 using Microsoft.Extensions.Caching.Memory;
 using System.Linq;
+using System.Diagnostics;
 
 namespace Infrastructure.Services
 {
@@ -44,8 +45,13 @@ namespace Infrastructure.Services
             var courts = _cache.Get<IEnumerable<Court>>(CacheKey);
             if(courts == null)
             {
+                Debug.WriteLine("Getting data from database.");
                 courts = await GetAllAsync();
                 _cache.Set(CacheKey, courts);
+            }
+            else
+            {
+                Debug.WriteLine("Getting data from cache.");
             }
             return courts;
         }
@@ -72,7 +78,7 @@ namespace Infrastructure.Services
             {
                 throw new Exception($"Court : '{street}' for city: '{city}' is not avaible");
             }
-            return await Task.FromResult(new Court() { City = city, Street = street });
+            return await Task.FromResult(new Court() { City = city, Street = street }); 
         }
 
         private class CourtDetails
