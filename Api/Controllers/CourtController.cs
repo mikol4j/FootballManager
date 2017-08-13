@@ -35,6 +35,7 @@ namespace testdotnet2.Controllers
 
         public async Task<IActionResult> Get()
         {
+            throw new Exception("Sth went wrong");
             var courts = await _courtProvider.BrowseAsync();
             return Json(courts);
         }

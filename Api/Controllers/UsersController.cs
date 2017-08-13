@@ -46,7 +46,7 @@ namespace testdotnet2.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]CreateUser command)
         {
-            await _commandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
 
             return Created($"users/{command.Email}", new object()); //201
 

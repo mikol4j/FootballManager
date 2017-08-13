@@ -29,6 +29,8 @@ namespace testdotnet2.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
+            throw new Exception("sth went wrong");
+
             var teams = await _teamService.BrowseAsync();
 
             return Json(teams);
@@ -37,7 +39,7 @@ namespace testdotnet2.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]CreateTeam command)
         {
-            await _commandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
 
             return NoContent();
         }

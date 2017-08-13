@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Infrastructure.Commands.Users
 {
-    public class CreateUser : ICommand
+    public class CreateUser : AuthenticatedCommand
     {
         public string Email { get; set; }
 

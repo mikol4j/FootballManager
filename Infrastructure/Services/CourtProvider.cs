@@ -45,14 +45,10 @@ namespace Infrastructure.Services
             var courts = _cache.Get<IEnumerable<Court>>(CacheKey);
             if(courts == null)
             {
-                Debug.WriteLine("Getting data from database.");
                 courts = await GetAllAsync();
                 _cache.Set(CacheKey, courts);
             }
-            else
-            {
-                Debug.WriteLine("Getting data from cache.");
-            }
+
             return courts;
         }
 

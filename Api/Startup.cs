@@ -19,6 +19,7 @@ using Infrastructure.IoC;
 using Microsoft.IdentityModel.Tokens;
 using Infrastructure.Settings;
 using System.Text;
+using Api.Framework;
 
 namespace testdotnet2
 {
@@ -91,13 +92,16 @@ namespace testdotnet2
                     ValidateAudience = false,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
                 }
-            };   
+            };
 
+            app.UseCustomExceptionHandler();
             app.UseJwtBearerAuthentication(options);
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
+
             app.UseMvc();
+
             var generalSettings = app.ApplicationServices.GetService<GeneralSettings>();
             if(generalSettings.SeedData)
             {
@@ -105,6 +109,7 @@ namespace testdotnet2
                 dataInitializer.SeedAsync();
             }
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
+
         }
     }
 }

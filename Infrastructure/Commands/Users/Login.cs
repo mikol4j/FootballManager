@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Infrastructure.Commands.Users
 {
-    public class Login : ICommand
+    public class Login : AuthenticatedCommand
     {
         public Guid TokenId { get; set; }
         public string Email { get; set; }

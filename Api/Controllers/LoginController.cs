@@ -24,7 +24,7 @@ namespace testdotnet2.Controllers
         public async Task<IActionResult> Post([FromBody] Login command)
         {
             command.TokenId = Guid.NewGuid();
-            await _commandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
             var jwt = _memoryCache.GetJwt(command.TokenId);
             return Json(jwt);
         }

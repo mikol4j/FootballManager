@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Infrastructure.Commands.Teams
 {
-    public class CreateTeam : ICommand
+    public class CreateTeam : AuthenticatedCommand
     {
         public Guid Id { get; set; }
 
